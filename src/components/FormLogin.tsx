@@ -27,7 +27,7 @@ export default function FormLogin() {
         const user = userCredential.user;
         const response = await requestSession(user);
         if (response.success) {
-          Router.push("/authenticated");
+          Router.push("/channel/me");
         }
       })
       .catch((error) => {
