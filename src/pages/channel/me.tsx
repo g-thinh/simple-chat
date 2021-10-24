@@ -18,16 +18,18 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   }
 }
 
-export default function Home(
+export default function ChannelHomePage(
   props: InferGetServerSidePropsType<typeof getServerSideProps>
 ) {
   return (
-    <LayoutDashboard>
-      <Container h="100%">
-        <Flex alignItems="center" justifyContent="center" h="100%">
-          <Heading as="h2">No Chat</Heading>
-        </Flex>
-      </Container>
-    </LayoutDashboard>
+    <Container h="100%">
+      <Flex alignItems="center" justifyContent="center" h="100%">
+        <Heading as="h2">No Chat</Heading>
+      </Flex>
+    </Container>
   );
 }
+
+ChannelHomePage.getLayout = function getLayout(page: React.ReactElement) {
+  return <LayoutDashboard>{page}</LayoutDashboard>;
+};

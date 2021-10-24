@@ -1,4 +1,5 @@
 import { Container, Heading } from "@chakra-ui/react";
+import Layout from "components/Layout";
 
 export default function HomePage() {
   return (
@@ -11,3 +12,7 @@ export default function HomePage() {
     </Container>
   );
 }
+
+HomePage.getLayout = function getLayout(page: React.ReactElement) {
+  return <Layout>{page}</Layout>;
+};

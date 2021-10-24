@@ -53,8 +53,8 @@ export default function Nav() {
             />
             {user ? (
               <>
-                <Link as={Button} href="/authenticated">
-                  Profile
+                <Link as={Button} href="/channel/me">
+                  Chat
                 </Link>
                 <Button colorScheme="teal" onClick={signUserOut}>
                   Log out

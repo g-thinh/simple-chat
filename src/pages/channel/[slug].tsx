@@ -18,12 +18,12 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   }
 }
 
-export default function Home(
+export default function Channels(
   props: InferGetServerSidePropsType<typeof getServerSideProps>
 ) {
-  return (
-    <LayoutDashboard>
-      <Messages />
-    </LayoutDashboard>
-  );
+  return <Messages />;
 }
+
+Channels.getLayout = function getLayout(page: React.ReactElement) {
+  return <LayoutDashboard>{page}</LayoutDashboard>;
+};

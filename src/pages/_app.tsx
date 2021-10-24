@@ -2,10 +2,21 @@ import { ChakraProvider, Progress } from "@chakra-ui/react";
 import Layout from "components/Layout";
 import { AuthProvider } from "contexts/AuthContext";
 import useLoading from "hooks/useLoading";
+import type { NextPage } from "next";
+import { AppProps } from "next/app";
 import theme from "styles/theme";
 
-function MyApp({ Component, pageProps }) {
+type NextPageWithLayout = NextPage & {
+  getLayout?: (page: React.ReactElement) => React.ReactNode;
+};
+
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout;
+};
+
+function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const { loading } = useLoading();
+  const getLayout = Component.getLayout ?? ((page) => page);
 
   return (
     <AuthProvider>
@@ -19,9 +30,7 @@ function MyApp({ Component, pageProps }) {
             sx={{ position: "fixed", top: 0, left: 0 }}
           />
         )}
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        {getLayout(<Component {...pageProps} />)}
       </ChakraProvider>
     </AuthProvider>
   );
