@@ -4,7 +4,7 @@ import { useAuth } from "contexts/AuthContext";
 import { useRouter } from "next/router";
 import { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
-import { useStore, addMessage } from "utils/chatStore";
+import { useMessages } from "hooks/useMessages";
 
 type MessageForm = {
   message: string;
@@ -16,7 +16,7 @@ export default function Messages() {
   const { slug } = router.query;
   const channelId = slug as string;
   const messagesEndRef = useRef(null);
-  const { messages } = useStore(channelId);
+  const { messages, addMessage } = useMessages(channelId);
   const { handleSubmit, register, reset } = useForm<MessageForm>();
 
   const onMessageSubmit = async ({ message }: MessageForm) => {

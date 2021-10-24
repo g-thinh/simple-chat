@@ -13,12 +13,12 @@ import Link from "components/Link";
 import ModalAddChannel from "components/ModalAddChannel";
 import { useRouter } from "next/router";
 import { FiX } from "react-icons/fi";
-import { deleteChannel, useStore } from "utils/chatStore";
+import { useChannels } from "hooks/useChannels";
 
 export default function Channels() {
   const router = useRouter();
   const { slug } = router.query;
-  const { channels } = useStore(slug as string);
+  const { channels, deleteChannel } = useChannels(slug as string);
 
   return (
     <Accordion

@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { useAuth } from "contexts/AuthContext";
 import { useForm } from "react-hook-form";
-import { addChannel } from "utils/chatStore";
+import { useChannels } from "hooks/useChannels";
 
 type ChannelForm = {
   roomName: string;
@@ -23,6 +23,7 @@ type ChannelForm = {
 export default function ModalAddChannel() {
   const { user } = useAuth();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { addChannel } = useChannels();
 
   const {
     handleSubmit,
