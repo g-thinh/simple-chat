@@ -4,6 +4,8 @@ import { useAuth } from "contexts/AuthContext";
 import Footer from "components/Footer";
 
 export default function Layout({ children }: React.PropsWithChildren<{}>) {
+  const { user } = useAuth();
+
   return (
     <Flex
       sx={{
@@ -12,9 +14,8 @@ export default function Layout({ children }: React.PropsWithChildren<{}>) {
         display: "flex",
       }}
     >
-      <Nav />
+      {!user && <Nav />}
       <Flex
-        mt={6}
         sx={{
           flex: 1,
           minWidth: 0,
@@ -22,7 +23,7 @@ export default function Layout({ children }: React.PropsWithChildren<{}>) {
       >
         {children}
       </Flex>
-      <Footer />
+      {!user && <Footer />}
     </Flex>
   );
 }
