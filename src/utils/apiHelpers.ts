@@ -40,3 +40,8 @@ export async function requestSession(user: User): Promise<Api.Session> {
   });
   return parse(response);
 }
+
+export async function getUsers(): Promise<Api.Session> {
+  const response = await fetch("/api/getUsers");
+  return parse(response);
+}
