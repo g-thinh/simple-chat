@@ -3,6 +3,7 @@ import { onIdTokenChanged, User } from "firebase/auth";
 import { useEffect, useState } from "react";
 import nookies from "nookies";
 import { firebaseAuth } from "services/firebase";
+import Router from "next/router";
 
 type AuthContext = {
   user: User | null;
@@ -21,6 +22,7 @@ export function AuthProvider({ children }: React.PropsWithChildren<{}>) {
         setUser(userState);
         nookies.set(undefined, "token", token, { maxAge: expiresIn });
       } else {
+        Router.push("/");
         setUser(null);
         nookies.destroy(null, "token", {});
       }

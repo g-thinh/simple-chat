@@ -1,13 +1,8 @@
 import { signOut, AuthError } from "firebase/auth";
 import { firebaseAuth } from "services/firebase";
-import Router from "next/router";
 
 export async function signUserOut() {
-  signOut(firebaseAuth)
-    .then(async () => {
-      Router.push("/");
-    })
-    .catch((error: AuthError) => {
-      console.log("An error occured", error.code, error.message);
-    });
+  signOut(firebaseAuth).catch((error: AuthError) => {
+    console.log("An error occured", error.code, error.message);
+  });
 }

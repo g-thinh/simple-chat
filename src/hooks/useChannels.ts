@@ -1,7 +1,6 @@
 import type { User } from "firebase/auth";
 import {
   addDoc,
-  collection,
   deleteDoc,
   doc,
   onSnapshot,
@@ -9,17 +8,16 @@ import {
   query,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { db } from "services/firestore";
+import { dbRefs } from "services/firestore";
+import * as Api from "types/api";
 
 export const useChannels = (channelId?: string) => {
-  const [channels, setChannels] = useState([]);
-  const channelsRef = collection(db, "channels");
-  const channelsQuery = query(channelsRef, orderBy("insertedAt", "asc"));
+  const [channels, setChannels] = useState<Api.Channel[]>([]);
+  const channelsQuery = query(dbRefs.channels, orderBy("insertedAt", "asc"));
 
   async function addChannel(name: string, user: User) {
     try {
-      const channelsRef = collection(db, "channels");
-      await addDoc(channelsRef, {
+      await addDoc(dbRefs.channels, {
         createdBy: user.uid,
         insertedAt: new Date(),
         roomName: name,
@@ -31,7 +29,7 @@ export const useChannels = (channelId?: string) => {
 
   async function deleteChannel(channelId) {
     try {
-      const channelsRef = doc(db, "channels", channelId);
+      const channelsRef = doc(dbRefs.channels, channelId);
       await deleteDoc(channelsRef);
     } catch (error) {
       console.log("There was an error deleting the channel", error);

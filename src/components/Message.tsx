@@ -11,7 +11,7 @@ type MessageItem = {
 export default function Message({ message, createdBy }: MessageItem) {
   const { user } = useAuth();
   const { colorMode } = useColorMode();
-  const isUser = createdBy === user.uid;
+  const isUser = createdBy === user?.uid;
 
   return isUser ? (
     <Box m={1}>

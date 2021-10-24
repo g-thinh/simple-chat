@@ -1,23 +1,15 @@
 import type { User } from "firebase/auth";
-import {
-  addDoc,
-  collection,
-  onSnapshot,
-  orderBy,
-  query,
-} from "firebase/firestore";
+import { addDoc, onSnapshot, orderBy, query } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { db } from "services/firestore";
+import { dbRefs } from "services/firestore";
 
 export const useMessages = (channelId?: string) => {
   const [messages, setMessages] = useState([]);
-  const messagesRef = collection(db, "messages");
-  const messagesQuery = query(messagesRef, orderBy("insertedAt", "asc"));
+  const messagesQuery = query(dbRefs.messages, orderBy("insertedAt", "asc"));
 
   async function addMessage(message: string, user: User, channelId: string) {
     try {
-      const messagesRef = collection(db, "messages");
-      await addDoc(messagesRef, {
+      await addDoc(dbRefs.messages, {
         createdBy: user.uid,
         insertedAt: new Date(),
         message: message,
