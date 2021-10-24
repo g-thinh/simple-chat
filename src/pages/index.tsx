@@ -7,32 +7,6 @@ import {
   UnorderedList,
   useColorMode,
 } from "@chakra-ui/react";
-import { GetServerSidePropsContext } from "next";
-import { adminAuth } from "services/firebaseAdmin";
-
-export async function getServerSideProps({ req }: GetServerSidePropsContext) {
-  try {
-    const sessionCookie: string = req.cookies.session ?? "";
-    const user = await adminAuth.verifySessionCookie(sessionCookie, true);
-
-    if (user) {
-      return {
-        redirect: {
-          destination: "/channel/me",
-          permanent: false,
-        },
-      };
-    }
-    return {
-      props: {},
-    };
-  } catch (error) {
-    console.log("CATCH ERROR", error);
-    return {
-      props: {},
-    };
-  }
-}
 
 export default function HomePage() {
   const { colorMode } = useColorMode();

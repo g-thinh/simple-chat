@@ -1,11 +1,9 @@
-import { Flex, Progress } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import Nav from "components/Nav";
 import { useAuth } from "contexts/AuthContext";
 import Footer from "components/Footer";
 
 export default function Layout({ children }: React.PropsWithChildren<{}>) {
-  const { user } = useAuth();
-
   return (
     <Flex
       sx={{
@@ -14,7 +12,7 @@ export default function Layout({ children }: React.PropsWithChildren<{}>) {
         display: "flex",
       }}
     >
-      {!user && <Nav />}
+      <Nav />
       <Flex
         sx={{
           flex: 1,
@@ -23,7 +21,7 @@ export default function Layout({ children }: React.PropsWithChildren<{}>) {
       >
         {children}
       </Flex>
-      {!user && <Footer />}
+      <Footer />
     </Flex>
   );
 }

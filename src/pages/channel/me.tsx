@@ -1,23 +1,20 @@
 import { Container, Flex, Heading } from "@chakra-ui/layout";
 import LayoutDashboard from "components/LayoutDashboard";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
+import nookies from "nookies";
 import { adminAuth } from "services/firebaseAdmin";
 
-export async function getServerSideProps({ req }: GetServerSidePropsContext) {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
   try {
-    const sessionCookie: string = req.cookies.session ?? "";
-    const user = await adminAuth.verifySessionCookie(sessionCookie, true);
+    const cookies = nookies.get(context);
+    const token = await adminAuth.verifyIdToken(cookies.token);
+
     return {
-      props: { user },
+      props: { token },
     };
   } catch (error) {
-    console.log("CATCH ERROR", error);
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
+    context.res.writeHead(302, { Location: "/login" }).end();
+    return { props: {} };
   }
 }
 
