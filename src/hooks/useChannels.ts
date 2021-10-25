@@ -11,8 +11,10 @@ import { useEffect, useState } from "react";
 import { dbRefs } from "services/firestore";
 import * as Api from "types/api";
 
+type ChannelsMap = Api.Channel & { id?: string };
+
 export const useChannels = (channelId?: string) => {
-  const [channels, setChannels] = useState<Api.Channel[]>([]);
+  const [channels, setChannels] = useState<ChannelsMap[]>([]);
   const channelsQuery = query(dbRefs.channels, orderBy("insertedAt", "asc"));
 
   async function addChannel(name: string, user: User) {
@@ -38,7 +40,7 @@ export const useChannels = (channelId?: string) => {
 
   useEffect(() => {
     const channelListener = onSnapshot(channelsQuery, (snapshot) => {
-      const newChannels = [];
+      const newChannels: ChannelsMap[] = [];
       snapshot.forEach((snap) => {
         newChannels.push({ ...snap.data(), id: snap.id });
       });
