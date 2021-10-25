@@ -1,6 +1,5 @@
-import { Flex, Progress } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import Nav from "components/Nav";
-import { useAuth } from "contexts/AuthContext";
 import Footer from "components/Footer";
 
 export default function Layout({ children }: React.PropsWithChildren<{}>) {
@@ -14,7 +13,6 @@ export default function Layout({ children }: React.PropsWithChildren<{}>) {
     >
       <Nav />
       <Flex
-        mt={6}
         sx={{
           flex: 1,
           minWidth: 0,

@@ -3,23 +3,23 @@ import {
   Container,
   Flex,
   Grid,
+  Heading,
   HStack,
   IconButton,
   useColorMode,
 } from "@chakra-ui/react";
 import Link from "components/Link";
-import { useAuth } from "contexts/AuthContext";
 import { FiMoon, FiSun } from "react-icons/fi";
 import { signUserOut } from "utils/firebaseHelpers";
+import ModalSettings from "./ModalSettings";
 
-export default function Nav() {
+export default function NavDashboard() {
   const { colorMode, toggleColorMode } = useColorMode();
-  const { user } = useAuth();
 
   return (
-    <Container maxW="100%" px={4} py={2}>
+    <Container maxW="100%" maxH="4.5rem" px={4} py={2}>
       <Flex sx={{ justifyContent: "space-between" }}>
-        <Link
+        <Heading
           fontSize={[32, 36]}
           fontWeight="bold"
           href="/"
@@ -31,7 +31,7 @@ export default function Nav() {
           }}
         >
           Simple Chat.
-        </Link>
+        </Heading>
         <Grid
           sx={{
             gridAutoFlow: "column",
@@ -40,6 +40,7 @@ export default function Nav() {
           }}
         >
           <HStack spacing="16px">
+            <ModalSettings />
             <IconButton
               aria-label="toggle dark/light mode"
               icon={
@@ -51,20 +52,12 @@ export default function Nav() {
               }
               onClick={toggleColorMode}
             />
-            {user ? (
-              <>
-                <Link as={Button} href="/channel/me">
-                  Chat
-                </Link>
-                <Button colorScheme="teal" onClick={signUserOut}>
-                  Log out
-                </Button>
-              </>
-            ) : (
-              <Link as={Button} href="/login">
-                Login
-              </Link>
-            )}
+            <Link as={Button} href="/channel/me">
+              Chat
+            </Link>
+            <Button colorScheme="teal" onClick={signUserOut}>
+              Log out
+            </Button>
           </HStack>
         </Grid>
       </Flex>
